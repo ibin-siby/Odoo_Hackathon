@@ -1,7 +1,8 @@
+
 {
   "name": "odoo-hackathon",
   "version": "1.0.0",
-  "description": "Subscription Management System",
+  "description": "Odoo Hackathon Subscription Management System",
   "main": "server/app.js",
   "scripts": {
     "start": "node server/app.js",
