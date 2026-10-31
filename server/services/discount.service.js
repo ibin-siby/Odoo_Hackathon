@@ -54,3 +54,4 @@ async function applyDiscounts(connection, invoiceData) {
 }
 
 module.exports = { applyDiscounts };
+

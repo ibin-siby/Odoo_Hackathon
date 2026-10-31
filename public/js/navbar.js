@@ -111,3 +111,4 @@ function renderNavbar() {
 }
 
 document.addEventListener('DOMContentLoaded', renderNavbar);
+
