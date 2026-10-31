@@ -1,0 +1,90 @@
+﻿```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Odoo Subscription Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f5f9;
+            margin: 0;
+            padding: 30px;
+            color: #222;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+        h1 { color: #714b67; }
+        input, textarea, select, button {
+            padding: 10px;
+            margin: 6px 0;
+            box-sizing: border-box;
+        }
+        input, textarea, select { width: 100%; }
+        button {
+            background: #714b67;
+            color: white;
+            border: 0;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        .message { margin-top: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Product Management</h1>
+
+        <h2>Add Product</h2>
+        <form id="productForm">
+            <input id="name" type="text" placeholder="Product name" required>
+            <textarea id="description" placeholder="Description"></textarea>
+            <input id="price" type="number" min="0" step="0.01"
+                   placeholder="Price" required>
+            <select id="status">
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+            </select>
+            <button type="submit">Add Product</button>
+        </form>
+
+        <p id="message" class="message"></p>
+
+        <h2>Products List</h2>
+        <button type="button" id="refreshButton">Refresh Products</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+<th>Name</th>
+<th>Description</th>
+<th>Price</th>
+<th>Status</th>
+<th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="productsTable"></tbody>
+        </table>
+    </div>
+
+    <script src="/js/products.js"></script>
+</body>
+</html>
+```
