@@ -7,6 +7,8 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+// Serve frontend files
+app.use(express.static('public'));
 
 // Payment routes
 const paymentRoutes = require('./routes/payments.routes');
