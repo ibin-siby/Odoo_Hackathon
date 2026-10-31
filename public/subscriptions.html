@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscriptions & Kanban Pipeline | Brightloop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+
+    <div id="navbar-container"></div>
+
+    <main class="container-fluid px-4 py-4">
+        <!-- Header -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+            <div>
+                <h1 class="h2 mb-1">Subscription Lifecycle Pipeline</h1>
+                <p class="text-muted mb-0">Enforcing the state machine: <code>Draft → Quotation → Confirmed → Active → Closed</code>.</p>
+            </div>
+            <div class="d-flex gap-2">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-dark btn-sm active" id="viewKanbanBtn">Kanban Board</button>
+                    <button type="button" class="btn btn-outline-dark btn-sm" id="viewTableBtn">Table View</button>
+                </div>
+                <button class="btn btn-brightloop btn-sm" data-bs-toggle="modal" data-bs-target="#newSubModal">
+                    <span>+</span> <span>New Subscription</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="subAlert" class="alert d-none"></div>
+
+        <!-- Kanban Board View -->
+        <div id="kanbanContainer" class="kanban-board">
+            <!-- Draft Column -->
+            <div class="kanban-column" id="col-draft">
+                <div class="kanban-header">
+                    <div class="kanban-title">⚪ Draft</div>
+                    <span class="kanban-count" id="count-draft">0</span>
+                </div>
+                <div class="kanban-cards" id="cards-draft"></div>
+            </div>
+
+            <!-- Quotation Column -->
+            <div class="kanban-column" id="col-quotation">
+                <div class="kanban-header">
+                    <div class="kanban-title">🟡 Quotation</div>
+                    <span class="kanban-count" id="count-quotation">0</span>
+                </div>
+                <div class="kanban-cards" id="cards-quotation"></div>
+            </div>
+
+            <!-- Confirmed Column -->
+            <div class="kanban-column" id="col-confirmed">
+                <div class="kanban-header">
+                    <div class="kanban-title">🔵 Confirmed</div>
+                    <span class="kanban-count" id="count-confirmed">0</span>
+                </div>
+                <div class="kanban-cards" id="cards-confirmed"></div>
+            </div>
+
+            <!-- Active Column -->
+            <div class="kanban-column" id="col-active">
+                <div class="kanban-header">
+                    <div class="kanban-title">🟢 Active</div>
+                    <span class="kanban-count" id="count-active">0</span>
+                </div>
+                <div class="kanban-cards" id="cards-active"></div>
+            </div>
+
+            <!-- Closed Column -->
+            <div class="kanban-column" id="col-closed">
+                <div class="kanban-header">
+                    <div class="kanban-title">⚫ Closed</div>
+                    <span class="kanban-count" id="count-closed">0</span>
+                </div>
+                <div class="kanban-cards" id="cards-closed"></div>
+            </div>
+        </div>
+
+        <!-- Table View (Hidden by default) -->
+        <div id="tableContainer" class="surface d-none">
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Subscription #</th>
+                            <th>Customer</th>
+                            <th>Plan</th>
+                            <th>Price & Cycle</th>
+                            <th>Start Date</th>
+                            <th>Next Billing</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="subscriptionsTableBody">
+                        <tr><td colspan="8" class="text-center py-4 text-muted">Loading subscriptions...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- New Subscription Modal -->
+    <div class="modal fade" id="newSubModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: var(--radius-md);">
+                <div class="modal-header border-bottom">
+                    <h5 class="modal-title brand-font">Create New Subscription</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="newSubForm">
+                    <div class="modal-body p-4">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">CUSTOMER</label>
+                                <select class="form-select" id="subCustomerSelect" required>
+                                    <option value="">Select customer...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">PLAN</label>
+                                <select class="form-select" id="subPlanSelect" required>
+                                    <option value="">Select plan...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold">START DATE</label>
+                                <input type="date" class="form-control" id="subStartDate" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold">EXPIRY DATE (OPTIONAL)</label>
+                                <input type="date" class="form-control" id="subEndDate">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold">INITIAL STATUS</label>
+                                <select class="form-select" id="subInitialStatus">
+                                    <option value="draft">Draft</option>
+                                    <option value="quotation">Quotation</option>
+                                    <option value="confirmed">Confirmed</option>
+                                    <option value="active">Active</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-top bg-light">
+                        <button type="button" class="btn btn-secondary-custom btn-sm" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-brightloop btn-sm">Create Subscription</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subscription Details & History Modal -->
+    <div class="modal fade" id="subDetailsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: var(--radius-md);">
+                <div class="modal-header border-bottom">
+                    <h5 class="modal-title brand-font" id="subDetailsTitle">Subscription Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4" id="subDetailsBody">
+                    <p class="text-center text-muted">Loading details...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/command-palette.js"></script>
+    <script src="js/subscriptions.js"></script>
+</body>
+</html>

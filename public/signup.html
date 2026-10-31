@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Signup | Brightloop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/theme.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #29243A 0%, #3D3556 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .signup-card {
+            width: 100%;
+            max-width: 480px;
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="signup-card">
+        <div class="text-center mb-4">
+            <h2 class="brand-font mb-1" style="font-size: 32px; color: var(--plum);">Create Account</h2>
+            <p class="text-muted small">Register for Brightloop Subscription Portal</p>
+        </div>
+
+        <div id="message" class="alert d-none"></div>
+
+        <form id="signupForm">
+            <div class="mb-3">
+                <label for="name" class="form-label small fw-bold text-muted">FULL NAME</label>
+                <input type="text" class="form-control py-2" id="name" placeholder="John Doe" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label small fw-bold text-muted">EMAIL ADDRESS</label>
+                <input type="email" class="form-control py-2" id="email" placeholder="name@company.com" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label small fw-bold text-muted">PASSWORD (MIN 8 CHARS)</label>
+                <input type="password" class="form-control py-2" id="password" placeholder="••••••••" required minlength="8">
+            </div>
+
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label small fw-bold text-muted">CONFIRM PASSWORD</label>
+                <input type="password" class="form-control py-2" id="confirmPassword" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn btn-brightloop w-100 py-2 justify-content-center mt-3" id="signupBtn">
+                Register Customer Account
+            </button>
+        </form>
+
+        <div class="text-center mt-4">
+            <span class="text-muted small">Already registered?</span>
+            <a href="login.html" class="small fw-bold ms-1">Sign In</a>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

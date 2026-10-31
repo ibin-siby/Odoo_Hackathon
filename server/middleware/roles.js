@@ -1,5 +1,6 @@
 function adminOnly(req, res, next) {
-    if (req.user && req.user.role === 'admin') {
+    const role = (req.user && req.user.role ? req.user.role : '').toLowerCase();
+    if (role === 'admin') {
         return next();
     }
 
@@ -10,7 +11,8 @@ function adminOnly(req, res, next) {
 }
 
 function staffAndAdmin(req, res, next) {
-    if (req.user && ['admin', 'staff'].includes(req.user.role)) {
+    const role = (req.user && req.user.role ? req.user.role : '').toLowerCase();
+    if (role === 'admin' || role === 'staff' || role === 'manager') {
         return next();
     }
 
@@ -21,7 +23,8 @@ function staffAndAdmin(req, res, next) {
 }
 
 function customerOnly(req, res, next) {
-    if (req.user && req.user.role === 'customer') {
+    const role = (req.user && req.user.role ? req.user.role : '').toLowerCase();
+    if (role === 'customer' || role === 'user') {
         return next();
     }
 

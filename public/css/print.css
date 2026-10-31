@@ -1,0 +1,29 @@
+@media print {
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .top-nav, 
+    .command-palette-backdrop,
+    .no-print,
+    button,
+    .btn {
+        display: none !important;
+    }
+
+    .container, .surface {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    .print-only {
+        display: block !important;
+    }
+}

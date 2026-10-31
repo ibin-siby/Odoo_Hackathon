@@ -1,12 +1,13 @@
-
 {
-  "name": "odoo-hackathon",
+  "name": "brightloop-subscription-system",
   "version": "1.0.0",
-  "description": "Odoo Hackathon Subscription Management System",
+  "description": "Brightloop Subscription Management Platform - Odoo Hackathon",
   "main": "server/app.js",
   "scripts": {
     "start": "node server/app.js",
-    "dev": "nodemon server/app.js"
+    "dev": "nodemon server/app.js",
+    "migrate": "node server/migrate.js",
+    "seed": "node server/seed.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
