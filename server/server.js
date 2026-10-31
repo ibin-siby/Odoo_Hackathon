@@ -16,6 +16,10 @@ app.use(express.static('public'));
 const paymentRoutes = require('./routes/payments.routes');
 app.use('/api/payments', paymentRoutes);
 
+// Invoice routes
+const invoiceRoutes = require('./routes/invoices.routes');
+app.use('/api/invoices', invoiceRoutes);
+
 // Quotation template routes
 const templatesRoutes = require('./routes/templates.routes');
 app.use('/api/templates', templatesRoutes);
