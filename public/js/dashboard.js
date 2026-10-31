@@ -1,7 +1,28 @@
-const API_URL = 'http://localhost:5000/api/payments';
+const API_URL = '/api/payments';
+const SUMMARY_URL = '/api/dashboard/summary';
 
 async function loadDashboard() {
     try {
+        // Fetch dashboard summary
+        const summaryResponse = await fetch(SUMMARY_URL);
+
+        if (!summaryResponse.ok) {
+            throw new Error('Failed to load dashboard summary');
+        }
+
+        const summary = await summaryResponse.json();
+
+        // Update dashboard cards
+        document.getElementById('totalRevenue').textContent =
+            '₹' + Number(summary.total_revenue).toFixed(2);
+
+        document.getElementById('outstandingAmount').textContent =
+            '₹' + Number(summary.outstanding_amount).toFixed(2);
+
+        document.getElementById('totalPayments').textContent =
+            summary.total_payments;
+
+        // Fetch recent payments
         const response = await fetch(API_URL);
 
         if (!response.ok) {
@@ -9,19 +30,6 @@ async function loadDashboard() {
         }
 
         const payments = await response.json();
-
-        // Calculate total revenue
-        const totalRevenue = payments.reduce(
-            (sum, payment) => sum + Number(payment.amount || 0),
-            0
-        );
-
-        // Update dashboard cards
-        document.getElementById('totalRevenue').textContent =
-            '₹' + totalRevenue.toFixed(2);
-
-        document.getElementById('totalPayments').textContent =
-            payments.length;
 
         // Display payment records
         const table = document.getElementById('paymentsTable');
@@ -52,7 +60,7 @@ async function loadDashboard() {
 
         document.getElementById('paymentsTable').innerHTML = `
             <tr>
-                <td colspan="5">Unable to load payments.</td>
+                <td colspan="5">Unable to load dashboard data.</td>
             </tr>
         `;
     }
