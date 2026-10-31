@@ -11,6 +11,8 @@ const errorHandler = require('./middleware/errorHandler');
 
 const authRoutes = require('./routes/auth.routes');
 const staffRoutes = require('./routes/staff.routes');
+const dashboardRoutes = require('./routes/dashboard.routes');
+const paymentRoutes = require('./routes/payments.routes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -42,6 +44,8 @@ app.use(express.static(path.join(__dirname, '../public')));
 // API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/staff', staffRoutes);
+app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/payments', paymentRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
