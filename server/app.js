@@ -9,13 +9,10 @@ const rateLimit = require('express-rate-limit');
 const { testConnection } = require('./db');
 const errorHandler = require('./middleware/errorHandler');
 
-const authRoutes = require('./routes/auth.routes');
-const staffRoutes = require('./routes/staff.routes');
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Security and basic middleware
+// Security and middleware
 app.use(helmet({
     contentSecurityPolicy: false
 }));
@@ -24,7 +21,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Limit repeated requests
+// Rate limiting
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 200,
@@ -36,18 +33,46 @@ const limiter = rateLimit({
 
 app.use('/api', limiter);
 
-// Serve frontend files
+// Serve frontend
 app.use(express.static(path.join(__dirname, '../public')));
 
-// API routes
+// Authentication routes
+const authRoutes = require('./routes/auth.routes');
 app.use('/api/auth', authRoutes);
+
+// Staff routes
+const staffRoutes = require('./routes/staff.routes');
 app.use('/api/staff', staffRoutes);
+
+// Products routes
+const productsRoutes = require('./routes/products.routes');
+app.use('/api/products', productsRoutes);
+
+// Payments routes
+const paymentsRoutes = require('./routes/payments.routes');
+app.use('/api/payments', paymentsRoutes);
+
+// Invoices routes
+const invoicesRoutes = require('./routes/invoices.routes');
+app.use('/api/invoices', invoicesRoutes);
+
+// Subscriptions routes
+const subscriptionsRoutes = require('./routes/subscriptions.routes');
+app.use('/api/subscriptions', subscriptionsRoutes);
+
+// Templates routes
+const templatesRoutes = require('./routes/templates.routes');
+app.use('/api/templates', templatesRoutes);
+
+// Finance dashboard routes
+const dashboardRoutes = require('./routes/dashboard.routes');
+app.use('/api/dashboard', dashboardRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
     res.json({
         success: true,
-        message: 'Brightloop Software API is running!'
+        message: 'Odoo Hackathon API is running!'
     });
 });
 
