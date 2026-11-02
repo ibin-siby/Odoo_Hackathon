@@ -55,16 +55,3 @@ Open **[http://localhost:3000](http://localhost:3000)** (or `http://localhost:30
 
 *(Note: The login page also features 1-click Quick Fill demo buttons for Admin, Staff, and Customer).*
 
----
-
-## 🎯 Hackathon Demonstration Flow for the Judges
-
-1. **Sign In**: Login as Admin or Staff using the quick demo buttons on `/login.html`.
-2. **Finance Dashboard**: View real-time KPI cards (Total Revenue Collected, Outstanding Balance, Active Subscriptions, Overdue Count), Chart.js monthly trend, recent payments, and overdue invoices.
-3. **Product & Plan Catalog**: Navigate to `/products.html` and `/plans.html` to showcase billable services, add-ons, and pricing tiers.
-4. **Subscription Kanban**: Navigate to `/subscriptions.html` to demonstrate the **5-Column Kanban Board** (`Draft → Quotation → Confirmed → Active → Closed`). Click **Advance →** on any card to step it through the business state machine.
-5. **Recurring Billing Run**: Click **⚡ Run Automated Billing** (from top navbar, dashboard, or Ctrl+K). The billing engine automatically identifies due active subscriptions, prevents duplicate billing, creates invoices with taxes and discounts, and advances the next billing date.
-6. **Invoices & Receipts**: Navigate to `/invoices.html` to view the generated invoices, confirm draft invoices, or click **View / Print** to preview a formatted invoice with printable stylesheet.
-7. **Partial & Final Payments**: Navigate to `/payments.html` and click **Record Payment**. Notice that selecting an invoice dynamically calculates the remaining balance and prevents overpayments.
-8. **Customer Portal**: Sign in as `customer@brightloop.com` to view `/portal.html` showing customer-isolated subscription status, renewal dates, and billing history.
-9. **Command Palette**: Press `Ctrl + K` anywhere in the app to quick-search pages or trigger automated billing instantly.
